@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { Analytics } from '@vercel/analytics/react';
 const op=(hex,pct)=>hex.slice(0,7)+Math.round(pct*2.55).toString(16).padStart(2,"0");
 const P=(O,H,L,M)=>({opens:O,highs:H,lows:L,mids:M});
 const CAT_META={
@@ -2036,6 +2037,7 @@ export default function App(){
       {showScreensaver&&<Screensaver themes={THEMES} onExit={()=>setShowScreensaver(false)}/>}
       {showChangelog&&<ChangelogModal onClose={()=>setShowChangelog(false)} ac={th.ac}/>}
       <Toast msg={toast}/>
+      <Analytics />
     </div>
   );
 }
