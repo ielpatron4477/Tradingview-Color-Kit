@@ -1,0 +1,52 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#08081a"/>
+      <stop offset="100%" stop-color="#05050f"/>
+    </linearGradient>
+    <linearGradient id="goldg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5d060"/>
+      <stop offset="100%" stop-color="#b8880a"/>
+    </linearGradient>
+    <radialGradient id="gateGlow" cx="73%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#c8a030" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#c8a030" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- grid -->
+  <line x1="0" y1="78" x2="1200" y2="78" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="0" y1="552" x2="1200" y2="552" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <!-- Gate glow -->
+  <rect x="600" y="0" width="600" height="630" fill="url(#gateGlow)"/>
+  <!-- Torii gate -->
+  <rect x="720" y="68" width="420" height="40" rx="10" fill="url(#goldg)" opacity="0.9"/>
+  <rect x="698" y="46" width="464" height="34" rx="12" fill="#b8880a" opacity="0.8"/>
+  <rect x="706" y="50" width="448" height="28" rx="10" fill="url(#goldg)"/>
+  <rect x="764" y="116" width="332" height="28" rx="7" fill="url(#goldg)" opacity="0.7"/>
+  <rect x="730" y="88" width="38" height="490" rx="10" fill="url(#goldg)" opacity="0.85"/>
+  <rect x="1092" y="88" width="38" height="490" rx="10" fill="url(#goldg)" opacity="0.85"/>
+  <!-- Trend line -->
+  <polyline points="740,560 820,440 900,490 980,330 1060,200 1120,130"
+    fill="none" stroke="#e04040" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1120" cy="130" r="10" fill="#f06060" opacity="0.9"/>
+  <circle cx="1120" cy="130" r="5" fill="#ff9090"/>
+  <!-- Text -->
+  <text x="60" y="100" fill="#c8a030" font-size="13" font-family="monospace" opacity="0.7">✦ THE DEFINITIVE TRADINGVIEW COLOR REFERENCE</text>
+  <text x="60" y="210" fill="#f0ece6" font-size="100" font-family="Georgia,serif" font-weight="bold">Chart</text>
+  <text x="60" y="320" fill="#c8a030" font-size="100" font-family="Georgia,serif" font-weight="bold">Color</text>
+  <text x="60" y="430" fill="#f0ece6" font-size="100" font-family="Georgia,serif" font-weight="bold">Kits</text>
+  <text x="60" y="480" fill="rgba(160,150,130,0.8)" font-size="18" font-family="sans-serif">125 curated color systems for TradingView</text>
+  <circle cx="68" cy="508" r="8" fill="#c8a030"/>
+  <text x="84" y="514" fill="rgba(160,150,130,0.6)" font-size="12" font-family="monospace">OPENS</text>
+  <circle cx="168" cy="508" r="8" fill="#e04040"/>
+  <text x="184" y="514" fill="rgba(160,150,130,0.6)" font-size="12" font-family="monospace">HIGHS</text>
+  <circle cx="268" cy="508" r="8" fill="#38c870"/>
+  <text x="284" y="514" fill="rgba(160,150,130,0.6)" font-size="12" font-family="monospace">LOWS</text>
+  <circle cx="358" cy="508" r="8" fill="#7838c8"/>
+  <text x="374" y="514" fill="rgba(160,150,130,0.6)" font-size="12" font-family="monospace">MIDS</text>
+  <line x1="0" y1="600" x2="1200" y2="600" stroke="rgba(200,168,48,0.1)" stroke-width="1"/>
+  <text x="60" y="622" fill="rgba(255,255,255,0.2)" font-size="13" font-family="monospace" font-weight="bold">tvkits.xyz</text>
+  <text x="1040" y="622" fill="rgba(255,255,255,0.15)" font-size="13" font-family="monospace">by aSian</text>
+</svg>
