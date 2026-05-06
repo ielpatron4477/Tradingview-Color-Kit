@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Trading Color Kits — tvkits.xyz</title>
+    <meta name="description" content="The definitive TradingView color kit reference. Key Levels, ICT/SMC, VWAP, Fibonacci and more. By aSian.">
+    <meta property="og:title" content="Trading Color Kits — by aSian">
+    <meta property="og:description" content="The definitive TradingView color kit reference. Key Levels, ICT/SMC, VWAP, Fibonacci and more.">
+    <meta property="og:url" content="https://tvkits.xyz">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Trading Color Kits — by aSian">
+    <meta name="twitter:description" content="The definitive TradingView color kit reference. Key Levels, ICT/SMC, VWAP, Fibonacci and more.">
+    <meta property="og:image" content="https://tvkits.xyz/og-image.png">
+    <meta name="twitter:image" content="https://tvkits.xyz/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { background: #05050f; color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+
+      /* ── NOISE TEXTURE ── */
+      body::before {
+        content: '';
+        position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        background-repeat: repeat; background-size: 180px 180px; opacity: 0.35; mix-blend-mode: overlay;
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar { width: 3px; height: 3px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 2px; }
+      .noscroll { overflow-x: auto; scrollbar-width: none; }
+      .noscroll::-webkit-scrollbar { display: none; }
+
+
+      /* ── CONTRAST UPGRADES ── */
+      /* Base text is now #e8e4de instead of dim grays */
+      :root {
+        --text-primary: #f0ece6;
+        --text-secondary: #8a8278;
+        --text-muted: #3a3630;
+        --border-subtle: rgba(255,255,255,0.09);
+        --border-medium: rgba(255,255,255,0.14);
+        --panel-bg: rgba(255,255,255,0.04);
+      }
+
+      /* ── GRADIENT MESH BACKGROUND ── */
+      #mesh-bg {
+        position: fixed; inset: 0; z-index: 0; pointer-events: none;
+        overflow: hidden;
+      }
+      #mesh-bg::before, #mesh-bg::after {
+        content: ''; position: absolute; border-radius: 50%;
+        filter: blur(80px); opacity: 0.18;
+        animation: meshFloat 12s ease-in-out infinite alternate;
+      }
+      #mesh-bg::before {
+        width: 700px; height: 700px;
+        top: -200px; left: -200px;
+        background: var(--mesh-color-1, #c8a830);
+      }
+      #mesh-bg::after {
+        width: 600px; height: 600px;
+        bottom: -150px; right: -100px;
+        background: var(--mesh-color-2, #c83838);
+        animation-delay: -6s;
+      }
+      @keyframes meshFloat {
+        0%   { transform: translate(0,0) scale(1); }
+        50%  { transform: translate(60px,40px) scale(1.08); }
+        100% { transform: translate(-30px,70px) scale(0.95); }
+      }
+
+      /* ── ANIMATED GRADIENT TEXT ── */
+      .gradient-text {
+        background: linear-gradient(135deg, var(--kit-ac, #c8a830) 0%, var(--kit-ac2, #e8d060) 40%, var(--kit-ac, #c8a830) 80%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: textShine 4s linear infinite;
+      }
+      @keyframes textShine {
+        0%   { background-position: 0% center; }
+        100% { background-position: 200% center; }
+      }
+
+      /* ── TICKER STRIP ── */
+      .ticker-wrap { overflow: hidden; white-space: nowrap; }
+      .ticker-inner {
+        display: inline-flex; gap: 0;
+        animation: ticker 150s linear infinite;
+      }
+      .ticker-inner:hover { animation-play-state: paused; }
+      @keyframes ticker {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* ── BETTER GLASS ── */
+      .glass-deep {
+        background: rgba(8,8,18,0.7);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--border-medium);
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 60px rgba(0,0,0,0.5);
+      }
+
+      /* ── KIT CARD GLOW ── */
+      .kit-card:hover { box-shadow: 0 0 40px var(--card-glow, rgba(200,168,48,0.2)), 0 8px 24px rgba(0,0,0,0.5) !important; }
+
+      /* ── BETTER CUBE FACE LIGHTING ── */
+      .cube-face-top    { filter: brightness(1.3); }
+      .cube-face-front  { filter: brightness(1.0); }
+      .cube-face-right  { filter: brightness(0.75); }
+      .cube-face-left   { filter: brightness(0.65); }
+      .cube-face-back   { filter: brightness(0.5); }
+      .cube-face-bottom { filter: brightness(0.35); }
+
+      /* ── CURSOR GLOW ── */
+      #cursor-glow {
+        position: fixed; width: 480px; height: 480px;
+        border-radius: 50%; pointer-events: none; z-index: 0;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.4s ease, background 1.2s ease;
+        filter: blur(80px); opacity: 0.12;
+      }
+
+      /* ── SHIMMER ── */
+      @keyframes shimmer {
+        0%   { background-position: -300% center; }
+        100% { background-position: 300% center; }
+      }
+      :root { --shimmer-dur: 9s; }
+      .glass-shimmer { position: relative; overflow: hidden; }
+      .glass-shimmer::after {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.018) 50%, transparent 58%);
+        background-size: 300% 100%;
+        animation: shimmer var(--shimmer-dur) linear infinite;
+        animation-delay: 0s; pointer-events: none; border-radius: inherit;
+      }
+
+      /* ── KIT CARD ── */
+      .kit-card {
+        transition: transform 0.18s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.18s ease;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .kit-card.active { transform: translateY(-6px) scale(1.04) !important; }
+
+      /* ── PREMIUM BUTTON ── */
+      .btn-primary {
+        position: relative; overflow: hidden;
+        background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%);
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(0,0,0,0.3);
+        transition: all 0.18s ease; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+      }
+      .btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 8px 24px rgba(0,0,0,0.4); }
+      .btn-primary:active { transform: translateY(1px) scale(0.99); box-shadow: inset 0 1px 0 rgba(0,0,0,0.2); }
+      .btn-accent {
+        position: relative; overflow: hidden;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 20px rgba(0,0,0,0.3);
+        transition: all 0.18s ease; cursor: pointer; font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      }
+      .btn-accent:hover { transform: translateY(-1px); filter: brightness(1.08); }
+      .btn-accent:active { transform: translateY(1px) scale(0.98); filter: brightness(0.95); }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp    { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+      @keyframes fadeIn    { from { opacity:0; } to { opacity:1; } }
+      @keyframes kitIn     { from { opacity:0; transform:translateY(14px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+      @keyframes slideLeft { from { opacity:0; transform:translateX(-24px); } to { opacity:1; transform:translateX(0); } }
+      @keyframes slideRight{ from { opacity:0; transform:translateX(24px); } to { opacity:1; transform:translateX(0); } }
+      @keyframes pulseGlow { 0%,100%{opacity:0.5} 50%{opacity:1} }
+      @keyframes toastIn   { from{opacity:0;transform:translateY(16px) scale(0.95)} to{opacity:1;transform:translateY(0) scale(1)} }
+      @keyframes cmdIn     { from{opacity:0;transform:translateY(-20px) scale(0.96)} to{opacity:1;transform:translateY(0) scale(1)} }
+      @keyframes ss-spin   { from{transform:rotateX(-18deg) rotateY(0deg)} to{transform:rotateX(-18deg) rotateY(360deg)} }
+      @keyframes floatY    { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-14px)} }
+      @keyframes copyPop   { 0%{transform:scale(1)} 30%{transform:scale(1.1)} 60%{transform:scale(0.97)} 100%{transform:scale(1)} }
+      @keyframes spin3d    { from{transform:rotateX(-22deg) rotateY(0deg)} to{transform:rotateX(-22deg) rotateY(360deg)} }
+
+      .fade-up    { animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .fade-up-2  { animation: fadeUp 0.5s 0.1s cubic-bezier(0.16,1,0.3,1) both; }
+      .fade-up-3  { animation: fadeUp 0.5s 0.2s cubic-bezier(0.16,1,0.3,1) both; }
+      .kit-slide  { animation: kitIn 0.3s cubic-bezier(0.34,1.3,0.64,1) forwards; }
+      .slide-left { animation: slideLeft 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .slide-right{ animation: slideRight 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+      .float-anim { animation: floatY 6s ease-in-out infinite; }
+      .cube-inner { animation: spin3d 9s linear infinite; transform-style: preserve-3d; }
+      .copy-pop   { animation: copyPop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+      .glow-pulse { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+      /* color transitions */
+      .color-transition { transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease !important; }
+
+      /* ── MOBILE ── */
+      /* Mobile-only elements */
+      .show-mobile-only { display: none !important; }
+      @media (max-width: 900px) {
+        .show-mobile-only { display: flex !important; }
+      }
+
+      .hide-desktop { display: none; }
+      @media (max-width: 900px) {
+        .hide-desktop { display: flex !important; }
+        .detail-grid { grid-template-columns: 1fr !important; }
+        .hero-grid   { grid-template-columns: 1fr !important; }
+        .kit-grid    { grid-template-columns: repeat(2,1fr) !important; }
+        .nav-inner   { padding: 0 16px !important; gap: 8px !important; }
+        .main-pad    { padding-left: 16px !important; padding-right: 16px !important; }
+        .hide-mobile { display: none !important; }
+        .sticky-card { position: relative !important; top: 0 !important; }
+        .hero-h1     { font-size: 44px !important; }
+        .swipe-hint  { display: flex !important; }
+      }
+      @media (min-width: 901px) { .swipe-hint { display: none; } }
+
+      /* ── COMMAND PALETTE ── */
+      .cmd-overlay {
+        position: fixed; inset: 0; z-index: 9000;
+        background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+        display: flex; align-items: flex-start; justify-content: center;
+        padding-top: 15vh;
+        animation: fadeIn 0.15s ease forwards;
+      }
+      .cmd-box {
+        width: 560px; max-width: calc(100vw - 32px);
+        background: rgba(12,12,20,0.98);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        box-shadow: 0 32px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
+        animation: cmdIn 0.2s cubic-bezier(0.16,1,0.3,1) forwards;
+        overflow: hidden;
+      }
+
+      /* ── 3D TILT ── */
+      .tilt-card { transform-style: preserve-3d; will-change: transform; }
+
+      /* 3D swipe flip for kit navigation */
+      @keyframes swipeLeft  { 0%{opacity:1;transform:rotateY(0deg) scale(1)} 40%{opacity:0;transform:rotateY(-45deg) scale(0.92)} 41%{opacity:0;transform:rotateY(45deg) scale(0.92)} 100%{opacity:1;transform:rotateY(0deg) scale(1)} }
+      @keyframes swipeRight { 0%{opacity:1;transform:rotateY(0deg) scale(1)} 40%{opacity:0;transform:rotateY(45deg) scale(0.92)} 41%{opacity:0;transform:rotateY(-45deg) scale(0.92)} 100%{opacity:1;transform:rotateY(0deg) scale(1)} }
+      .swipe-left-anim  { animation: swipeLeft  0.38s cubic-bezier(0.4,0,0.2,1) forwards; }
+      .swipe-right-anim { animation: swipeRight 0.38s cubic-bezier(0.4,0,0.2,1) forwards; }
+
+
+      /* ── FLUID MOBILE ── */
+      html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+        -webkit-text-size-adjust: 100%;
+      }
+      /* Nav wraps on zoom */
+      .nav-inner {
+        flex-wrap: wrap;
+        height: auto !important;
+        min-height: 64px;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+      }
+      /* Prevent any fixed-width element from overflowing */
+      * { max-width: 100%; }
+      img, canvas, svg { max-width: 100%; height: auto; }
+      /* Fluid text on mobile */
+      @media (max-width: 480px) {
+        .hero-h1 { font-size: 36px !important; }
+        .main-pad { padding-left: 14px !important; padding-right: 14px !important; }
+        .detail-grid { gap: 16px !important; }
+      }
+      /* Safe area insets for notched phones */
+      .main-pad {
+        padding-left: max(16px, env(safe-area-inset-left)) !important;
+        padding-right: max(16px, env(safe-area-inset-right)) !important;
+      }
+      nav {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+
+      /* ── ANIMATED GRADIENT BORDER on active kit card ── */
+      @keyframes borderSpin { 0%{--border-angle:0deg} 100%{--border-angle:360deg} }
+      @property --border-angle { syntax:'<angle>'; inherits:true; initial-value:0deg; }
+      .kit-card-active-border {
+        position:relative; z-index:0;
+        animation: borderSpin 4s linear infinite;
+      }
+      .kit-card-active-border::before {
+        content:''; position:absolute; inset:-2px; border-radius:16px; z-index:-1;
+        background: conic-gradient(from var(--border-angle),
+          var(--fam-opens,#c8a830), var(--fam-highs,#e83838),
+          var(--fam-lows,#38c870), var(--fam-mids,#7038c8),
+          var(--fam-opens,#c8a830));
+        animation: inherit;
+      }
+      .kit-card-active-border::after {
+        content:''; position:absolute; inset:1px; border-radius:14px; z-index:-1;
+        background: inherit;
+      }
+
+      /* ── GLASS TILT SPECULAR ── */
+      .kit-card-tilt {
+        position:relative; overflow:hidden;
+      }
+      .kit-card-tilt::before {
+        content:''; position:absolute; inset:0; border-radius:inherit;
+        background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
+          rgba(255,255,255,0.12) 0%, transparent 60%);
+        pointer-events:none; z-index:1; opacity:0; transition:opacity 0.3s;
+      }
+      .kit-card-tilt:hover::before { opacity:1; }
+
+      /* ── TAB SLIDING UNDERLINE ── */
+      .tab-bar { position:relative; }
+      .tab-underline {
+        position:absolute; bottom:0; height:2px; border-radius:1px;
+        transition: left 0.25s cubic-bezier(0.4,0,0.2,1),
+                    width 0.25s cubic-bezier(0.4,0,0.2,1),
+                    background 0.4s ease;
+        pointer-events:none;
+      }
+
+      /* ── STAGGERED CARD ENTRANCE ── */
+      @keyframes cardEntrance {
+        from { opacity:0; transform:translateY(10px) scale(0.97); }
+        to   { opacity:1; transform:translateY(0) scale(1); }
+      }
+      .kit-card-enter { animation: cardEntrance 0.28s cubic-bezier(0.34,1.3,0.64,1) both; }
+
+      /* ── PARTICLE CANVAS ── */
+      #particle-canvas {
+        position:fixed; inset:0; pointer-events:none; z-index:9999; width:100%; height:100%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="cursor-glow"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Cursor glow — runs outside React for max performance
+      const glow = document.getElementById('cursor-glow');
+      let cx=window.innerWidth/2, cy=window.innerHeight/2;
+      let tx=cx, ty=cy, color='rgba(200,168,48,1)';
+      window.addEventListener('mousemove', e => { tx=e.clientX; ty=e.clientY; });
+      const tick = () => {
+        cx += (tx-cx)*0.08; cy += (ty-cy)*0.08;
+        glow.style.left = cx+'px'; glow.style.top = cy+'px';
+        requestAnimationFrame(tick);
+      };
+      tick();
+      // Color update — React sets window.__kitAccent
+      setInterval(() => {
+        if(window.__kitAccent && window.__kitAccent !== color) {
+          color = window.__kitAccent;
+          glow.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+        }
+      }, 300);
+    </script>
+  </body>
+</html>
